@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:imoney_saver/models/db_model.dart';
 import 'package:imoney_saver/models/money_saver_arguments.dart';
+import 'package:imoney_saver/models/money_saver_model.dart';
+import 'package:imoney_saver/net/notification_api.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
@@ -16,12 +19,13 @@ class MoneySaverUpdateDetail extends StatefulWidget {
 }
 
 class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
+  var db = DatabaseConnect();
   DateTime selectedDate = DateTime.now();
   String _month = "";
   String dropdownValue = '';
   IconData texticon = Icons.add;
-  var controller = TextEditingController();
-  var controller2 = TextEditingController();
+  var moneyText = TextEditingController();
+  var remarksText = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
     // print(widget.data.creationDate);
@@ -44,14 +48,14 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
     super.initState();
     texticon =
         (widget.data.category == 'Expense') ? Icons.horizontal_rule : Icons.add;
-    controller = TextEditingController(text: widget.data.money.toString());
-    controller2 = TextEditingController(text: widget.data.remarks.toString());
+    moneyText = TextEditingController(text: widget.data.money.toString());
+    remarksText = TextEditingController(text: widget.data.remarks.toString());
   }
 
   @override
   void dispose() {
-    controller.dispose();
-    controller2.dispose();
+    moneyText.dispose();
+    remarksText.dispose();
     super.dispose();
   }
 
@@ -99,7 +103,7 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                     width: 310,
                     child: Center(
                       child: TextFormField(
-                        controller: controller2,
+                        controller: remarksText,
                         autofocus: false,
                         maxLines: 2,
                         textAlign: TextAlign.center,
@@ -125,7 +129,7 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                         width: 250,
                         child: Center(
                           child: TextFormField(
-                            controller: controller,
+                            controller: moneyText,
                             autofocus: false,
                             readOnly: true,
                             enableInteractiveSelection: false,
@@ -150,19 +154,19 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                               number: 7,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             NumberButton(
                               number: 8,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             NumberButton(
                               number: 9,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             SizedBox(
                               height: 70,
@@ -204,19 +208,19 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                               number: 4,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             NumberButton(
                               number: 5,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             NumberButton(
                               number: 6,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             SizedBox(
                               height: 70,
@@ -259,19 +263,19 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                               number: 1,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             NumberButton(
                               number: 2,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             NumberButton(
                               number: 3,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             SizedBox(
                               height: 70,
@@ -315,7 +319,7 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                               width: 70,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  controller.text += ".";
+                                  moneyText.text += ".";
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -337,17 +341,17 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                               number: 0,
                               size: 70,
                               color: Colors.indigo,
-                              controller: controller,
+                              controller: moneyText,
                             ),
                             SizedBox(
                                 height: 70,
                                 width: 70,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      if (controller.text.isNotEmpty) {
-                                        controller.text = controller.text
+                                      if (moneyText.text.isNotEmpty) {
+                                        moneyText.text = moneyText.text
                                             .substring(
-                                                0, controller.text.length - 1);
+                                                0, moneyText.text.length - 1);
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -364,7 +368,22 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                                 height: 70,
                                 width: 100,
                                 child: ElevatedButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      Future<MoneySaverModel> result =
+                                          db.updateData(MoneySaverModel(
+                                              id: widget.data.id,
+                                              remarks: remarksText.text,
+                                              money:
+                                                  double.parse(moneyText.text),
+                                              category: dropdownValue,
+                                              creationDate: selectedDate,
+                                              isChecked: false));
+                                      await result.then((value) {
+                                        NotificationApi.showNotification(
+                                            title: 'Successfully Updated!',
+                                            body: value.remarks,
+                                            payload: 'test payload');
+                                      });
                                       // controller.text += number.toString();
                                     },
                                     style: ElevatedButton.styleFrom(

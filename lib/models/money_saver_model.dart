@@ -1,5 +1,5 @@
 class MoneySaverModel {
-  final int? id;
+  int? id;
   final String remarks;
   final num money;
   // final double incomeMoney;

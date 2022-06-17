@@ -1,4 +1,4 @@
-// import 'package:imoney_saver/models/money_saver_arguments.dart';
+// import 'package:imoney_ssaver_arguments.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import './money_saver_model.dart';
@@ -33,11 +33,19 @@ class DatabaseConnect {
     ''');
   }
 
-  Future<void> insertData(MoneySaverModel data) async {
+  Future<MoneySaverModel> insertData(MoneySaverModel data) async {
     final db = await database; //get connection to database
-    await db.insert(
+    data.id = await db.insert(
         'money_saver', data.toMap(), //toMap function in money_saver_model
         conflictAlgorithm: ConflictAlgorithm.replace);
+    return data;
+  }
+
+  Future<MoneySaverModel> updateData(MoneySaverModel data) async {
+    final db = await database; //get connection to database
+    data.id = await db.update('money_saver', data.toMap(),
+        where: 'id==?', whereArgs: [data.id]);
+    return data;
   }
 
   Future<void> deleteAlldata() async {
@@ -45,9 +53,11 @@ class DatabaseConnect {
     await db.delete('money_saver');
   }
 
-  Future<void> deleteData(MoneySaverModel data) async {
+  Future<MoneySaverModel> deleteData(MoneySaverModel data) async {
     final db = await database;
-    await db.delete('money_saver', where: 'id==?', whereArgs: [data.id]);
+    data.id =
+        await db.delete('money_saver', where: 'id==?', whereArgs: [data.id]);
+    return data;
   }
 
   Future<List<MoneySaverModel>> getData() async {

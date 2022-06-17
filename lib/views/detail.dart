@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:imoney_saver/models/money_saver_model.dart';
+import 'package:imoney_saver/net/notification_api.dart';
 import 'package:intl/intl.dart';
 import 'package:imoney_saver/models/money_saver_arguments.dart';
 import 'package:imoney_saver/models/db_model.dart';
@@ -141,14 +143,26 @@ class MoneySaverDetails extends StatelessWidget {
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: const Text("Ok"),
       onPressed: () {
-        // db.deleteData(MoneySaverModel data);
+        Future<MoneySaverModel> result = db.deleteData(MoneySaverModel(
+            id: data.id,
+            remarks: '',
+            money: 00,
+            category: '',
+            creationDate: DateTime.now(),
+            isChecked: false));
+        result.then((value) {
+          NotificationApi.showNotification(
+              title: 'Successfully Deleted!',
+              body: data.remarks,
+              payload: 'test payload');
+        });
         Navigator.of(context).pop(); // dismiss dialog
       },
     );
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: const Text("Cancel"),
       onPressed: () {
         Navigator.of(context).pop(); // dismiss dialog
