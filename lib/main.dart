@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:imoney_saver/provider/detail_provider.dart';
 import 'package:imoney_saver/routes/route_generator.dart';
 // import 'package:imoney_saver/views/about.dart';
 import 'package:imoney_saver/views/widgets/lists.dart';
 import 'package:intl/intl.dart';
 import 'package:mat_month_picker_dialog/mat_month_picker_dialog.dart';
+import 'package:provider/provider.dart';
 // import 'models/db_model.dart';
 // import 'models/money_saver_model.dart';
 import 'net/notification_api.dart';
@@ -34,7 +36,19 @@ void main() async {
   //     creationDate: DateTime.now(),
   //     isChecked: false));
 
-  runApp(const MyApp());
+// https://stackoverflow.com/questions/64105755/use-provider-and-futurebuilder-not-possible
+// https://stackoverflow.com/questions/56359049/setting-provider-value-in-futurebuilder
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => MoneySaverDetailProvider(),
+      ),
+      // ChangeNotifierProvider.value(
+      //   value: MoneySaverDetailProvider(),
+      // ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -80,8 +94,10 @@ class MyAppState extends State<Home> {
       NotificationApi.onNotification.stream.listen(onClickNotification);
   void onClickNotification(String? payload) {
     //Do something you want when clicked notification
-    // Navigator.of(context)
-    //     .push(MaterialPageRoute(builder: (context) => MoneySaverAbout(payload: payload)));
+    // Navigator.of(context).push(MaterialPageRoute(
+    //     builder: (context) => MoneySaverAbout(payload: payload)));
+    // Navigator.of(context).push(MaterialPageRoute(builder: (_) => const Home()));
+    // Navigator.of(context).pushNamed('/');
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -115,7 +131,7 @@ class MyAppState extends State<Home> {
         ),
       ]),
       drawer: const NavigationDrawer(),
-      body: Column(children: [MoneySaverList()]),
+      body: Column(children: const [MoneySaverList()]),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Details',
         onPressed: () => Navigator.of(context).pushNamed('/detail_add'),

@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:imoney_saver/models/money_saver_arguments.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class MoneySaverCard extends StatefulWidget {
-  final int id;
+  int? id;
   final String remarks;
   final num money;
-  // final num incomeMoney;
-  // final num expenseMoney;
   final String category;
   final DateTime creationDate;
   final dynamic isChecked; //set dynamic data type
   final DateFormat formatter = DateFormat('MM/dd EEE'); //intl.dart
 
   MoneySaverCard(
-      {required this.id,
+      {this.id,
       required this.remarks,
       required this.money,
-      // required this.incomeMoney,
-      // required this.expenseMoney,
       required this.category,
       required this.creationDate,
       required this.isChecked,
@@ -44,8 +41,6 @@ class MoneySaverState extends State<MoneySaverCard> {
                           widget.id,
                           widget.remarks,
                           widget.money,
-                          // widget.incomeMoney,
-                          // widget.expenseMoney,
                           widget.category,
                           widget.creationDate,
                           widget.isChecked));

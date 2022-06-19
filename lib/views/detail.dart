@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:imoney_saver/models/money_saver_model.dart';
 import 'package:imoney_saver/net/notification_api.dart';
+import 'package:imoney_saver/provider/detail_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:imoney_saver/models/money_saver_arguments.dart';
 import 'package:imoney_saver/models/db_model.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class MoneySaverDetails extends StatelessWidget {
@@ -14,6 +16,8 @@ class MoneySaverDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final detailProvider =
+        Provider.of<MoneySaverDetailProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(title: const Text('Details')),
       body: Card(
@@ -34,7 +38,7 @@ class MoneySaverDetails extends StatelessWidget {
                       IconButton(
                           tooltip: 'Delete Details',
                           onPressed: () {
-                            showAlertDialog(context);
+                            showAlertDialog(context, detailProvider);
                           },
                           icon: const Icon(Icons.delete_outline_outlined))
                     ],
@@ -141,25 +145,27 @@ class MoneySaverDetails extends StatelessWidget {
     );
   }
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context, detailProvider) {
     // set up the buttons
     Widget okButton = TextButton(
       child: const Text("Ok"),
-      onPressed: () {
-        Future<MoneySaverModel> result = db.deleteData(MoneySaverModel(
-            id: data.id,
-            remarks: '',
-            money: 00,
-            category: '',
-            creationDate: DateTime.now(),
-            isChecked: false));
-        result.then((value) {
+      onPressed: () async {
+        await detailProvider
+            .deleteDataProvider(MoneySaverModel(
+                id: data.id,
+                remarks: '',
+                money: 00,
+                category: '',
+                creationDate: DateTime.now(),
+                isChecked: false))
+            .then((value) {
           NotificationApi.showNotification(
               title: 'Successfully Deleted!',
               body: data.remarks,
               payload: 'test payload');
+          Navigator.of(context).pop();
         });
-        Navigator.of(context).pop(); // dismiss dialog
+        // dismiss dialog
       },
     );
     Widget cancelButton = TextButton(

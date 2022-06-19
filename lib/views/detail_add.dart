@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:imoney_saver/provider/detail_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../models/db_model.dart';
 import '../models/money_saver_model.dart';
@@ -56,12 +58,14 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final detailProvider =
+        Provider.of<MoneySaverDetailProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Add Details'),
           actions: [
             DropdownButton<String>(
-              value: dropdownValue,
+              value: dropdownValue.isEmpty ? 'Expense' : dropdownValue,
               icon: const Icon(Icons.arrow_downward),
               elevation: 10,
               style: const TextStyle(
@@ -359,20 +363,25 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
                                 width: 100,
                                 child: ElevatedButton(
                                     onPressed: () async {
-                                      Future<MoneySaverModel> result =
-                                          db.insertData(MoneySaverModel(
-                                              remarks: remarksText.text,
-                                              money:
-                                                  double.parse(moneyText.text),
+                                      String money = moneyText.text.isNotEmpty
+                                          ? moneyText.text
+                                          : '0.00';
+                                      String remarks =
+                                          remarksText.text.isNotEmpty
+                                              ? remarksText.text
+                                              : 'None';
+                                      await detailProvider
+                                          .insertDataProvider(MoneySaverModel(
+                                              remarks: remarks,
+                                              money: double.parse(money),
                                               category: dropdownValue,
                                               creationDate: selectedDate,
-                                              isChecked: false));
-                                      await result.then((value) {
-                                        NotificationApi.showNotification(
-                                            title: 'Successfully Added!',
-                                            body: value.remarks,
-                                            payload: 'test payload');
-                                      });
+                                              isChecked: false))
+                                          .then((value) =>
+                                              NotificationApi.showNotification(
+                                                  title: 'Successfully Added!',
+                                                  body: value.remarks,
+                                                  payload: 'test payload'));
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(

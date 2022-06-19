@@ -1,9 +1,7 @@
 class MoneySaverArguments {
-  final int id;
+  int? id;
   final String remarks;
   final num money;
-  // final num incomeMoney;
-  // final num expenseMoney;
   final String category;
   final DateTime creationDate;
   final dynamic isChecked; //set dynamic data type

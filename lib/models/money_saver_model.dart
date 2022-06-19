@@ -2,8 +2,6 @@ class MoneySaverModel {
   int? id;
   final String remarks;
   final num money;
-  // final double incomeMoney;
-  // final double expenseMoney;
   final String category;
   final DateTime creationDate;
   final bool isChecked;
@@ -13,8 +11,6 @@ class MoneySaverModel {
       {this.id,
       required this.remarks,
       required this.money,
-      // required this.incomeMoney,
-      // required this.expenseMoney,
       required this.category,
       required this.creationDate,
       required this.isChecked});

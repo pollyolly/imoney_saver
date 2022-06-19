@@ -3,7 +3,9 @@ import 'package:imoney_saver/models/db_model.dart';
 import 'package:imoney_saver/models/money_saver_arguments.dart';
 import 'package:imoney_saver/models/money_saver_model.dart';
 import 'package:imoney_saver/net/notification_api.dart';
+import 'package:imoney_saver/provider/detail_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class MoneySaverUpdateDetail extends StatefulWidget {
@@ -61,6 +63,8 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final detailProvider =
+        Provider.of<MoneySaverDetailProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Update Details'),
@@ -369,22 +373,27 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                                 width: 100,
                                 child: ElevatedButton(
                                     onPressed: () async {
-                                      Future<MoneySaverModel> result =
-                                          db.updateData(MoneySaverModel(
+                                      String money = moneyText.text.isNotEmpty
+                                          ? moneyText.text
+                                          : '0.00';
+                                      String remarks =
+                                          remarksText.text.isNotEmpty
+                                              ? remarksText.text
+                                              : 'None';
+                                      await detailProvider
+                                          .updateDataProvider(MoneySaverModel(
                                               id: widget.data.id,
-                                              remarks: remarksText.text,
-                                              money:
-                                                  double.parse(moneyText.text),
+                                              remarks: remarks,
+                                              money: double.parse(money),
                                               category: dropdownValue,
                                               creationDate: selectedDate,
-                                              isChecked: false));
-                                      await result.then((value) {
-                                        NotificationApi.showNotification(
-                                            title: 'Successfully Updated!',
-                                            body: value.remarks,
-                                            payload: 'test payload');
-                                      });
-                                      // controller.text += number.toString();
+                                              isChecked: false))
+                                          .then((value) =>
+                                              NotificationApi.showNotification(
+                                                  title:
+                                                      'Successfully Updated!',
+                                                  body: value.remarks,
+                                                  payload: 'test payload'));
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
