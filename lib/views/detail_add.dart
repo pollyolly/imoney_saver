@@ -113,34 +113,37 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
                       ),
                     )),
                 const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: 70,
-                      width: 30,
-                      child: Center(
-                        child: Icon(texticon),
-                      ),
-                    ),
-                    SizedBox(
-                        height: 60,
-                        width: 250,
-                        child: Center(
-                          child: TextFormField(
-                            controller: moneyText,
-                            autofocus: false,
-                            readOnly: true,
-                            enableInteractiveSelection: false,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 30),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder()),
+                SizedBox(
+                    width: 310,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 70,
+                          width: 40,
+                          child: Center(
+                            child: Icon(texticon),
                           ),
-                        )),
-                  ],
-                ),
+                        ),
+                        SizedBox(
+                            height: 60,
+                            width: 270,
+                            child: Center(
+                              child: TextFormField(
+                                controller: moneyText,
+                                autofocus: false,
+                                readOnly: true,
+                                enableInteractiveSelection: false,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 30),
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder()),
+                              ),
+                            )),
+                      ],
+                    )),
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
