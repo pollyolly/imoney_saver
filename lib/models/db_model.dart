@@ -1,4 +1,5 @@
 // import 'package:imoney_ssaver_arguments.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import './money_saver_model.dart';
@@ -60,10 +61,50 @@ class DatabaseConnect {
     return data;
   }
 
+  Future<List> testgetSelectedData(String dateStr) async {
+    final db = await database;
+    // List<Map<String, dynamic>> items = await db
+    //     .query('money_saver', where: 'creationDate=?', whereArgs: [dateStr]);
+    List<Map<String, dynamic>> items = await db.rawQuery(
+        'SELECT * FROM money_saver WHERE strftime("%m-%Y", creationDate) == ?',
+        [dateStr]);
+    return List.generate(
+        items.length,
+        (i) => MoneySaverModel(
+            id: items[i]['id'],
+            remarks: items[i]['remarks'],
+            money: items[i]['money'],
+            category: items[i]['category'],
+            creationDate: DateTime.parse(items[i][
+                'creationDate']), //text format from model convert to datetime format for display
+            isChecked: items[i]['isChecked'] == 1 ? true : false));
+  }
+
+  Future<List<MoneySaverModel>> getSelectedData(String dateStr) async {
+    final db = await database;
+    List<Map<String, dynamic>> items = await db.rawQuery(
+        'SELECT * FROM money_saver WHERE strftime("%m-%Y", creationDate) = ?',
+        [dateStr]);
+    return List.generate(
+        items.length,
+        (i) => MoneySaverModel(
+            id: items[i]['id'],
+            remarks: items[i]['remarks'],
+            money: items[i]['money'],
+            category: items[i]['category'],
+            creationDate: DateTime.parse(items[i][
+                'creationDate']), //text format from model convert to datetime format for display
+            isChecked: items[i]['isChecked'] == 1 ? true : false));
+  }
+
   Future<List<MoneySaverModel>> getData() async {
     final db = await database;
-    List<Map<String, dynamic>> items =
-        await db.query('money_saver', orderBy: 'creationDate DESC');
+    String currentDate =
+        DateFormat('MM-yyyy').format(DateTime.now()).toString();
+    List<Map<String, dynamic>> items = await db.query('money_saver',
+        where: 'strftime("%m-%Y", creationDate) = ?',
+        orderBy: 'creationDate DESC',
+        whereArgs: [currentDate]);
 
     return List.generate(
         items.length,
@@ -71,7 +112,6 @@ class DatabaseConnect {
             id: items[i]['id'],
             remarks: items[i]['remarks'],
             money: items[i]['money'],
-            // expenseMoney: items[i]['expenseMoney'],
             category: items[i]['category'],
             creationDate: DateTime.parse(items[i][
                 'creationDate']), //text format from model convert to datetime format for display

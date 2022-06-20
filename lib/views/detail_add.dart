@@ -27,6 +27,7 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
   IconData texticon = Icons.add;
   var moneyText = TextEditingController();
   var remarksText = TextEditingController();
+  var detailProvider;
 
   Future<void> _selectDate(BuildContext context) async {
     // print(widget.data.creationDate);
@@ -39,13 +40,15 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
       setState(() {
         selectedDate = picked;
         _month = DateFormat("MMM/d").format(picked).toString();
-        // print(picked);
+        print(selectedDate);
       });
     }
   }
 
   @override
   void initState() {
+    detailProvider =
+        Provider.of<MoneySaverDetailProvider>(context, listen: false);
     super.initState();
   }
 
@@ -58,8 +61,6 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final detailProvider =
-        Provider.of<MoneySaverDetailProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Add Details'),

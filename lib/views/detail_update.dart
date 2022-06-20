@@ -28,6 +28,7 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
   IconData texticon = Icons.add;
   var moneyText = TextEditingController();
   var remarksText = TextEditingController();
+  var detailProvider;
 
   Future<void> _selectDate(BuildContext context) async {
     // print(widget.data.creationDate);
@@ -47,11 +48,15 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
 
   @override
   void initState() {
-    super.initState();
     texticon =
         (widget.data.category == 'Expense') ? Icons.horizontal_rule : Icons.add;
+    dropdownValue = widget.data.category;
     moneyText = TextEditingController(text: widget.data.money.toString());
     remarksText = TextEditingController(text: widget.data.remarks.toString());
+
+    detailProvider =
+        Provider.of<MoneySaverDetailProvider>(context, listen: false);
+    super.initState();
   }
 
   @override
@@ -63,8 +68,6 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final detailProvider =
-        Provider.of<MoneySaverDetailProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Update Details'),
@@ -388,12 +391,14 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                                               category: dropdownValue,
                                               creationDate: selectedDate,
                                               isChecked: false))
-                                          .then((value) =>
-                                              NotificationApi.showNotification(
-                                                  title:
-                                                      'Successfully Updated!',
-                                                  body: value.remarks,
-                                                  payload: 'test payload'));
+                                          .then((value) async {
+                                        await NotificationApi.showNotification(
+                                            title: 'Successfully Updated!',
+                                            body: value.remarks,
+                                            payload: 'test payload');
+                                        await Navigator.of(context)
+                                            .pushNamed('/');
+                                      });
                                     },
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(

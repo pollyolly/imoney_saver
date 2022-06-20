@@ -13,7 +13,6 @@ class MoneySaverList extends StatefulWidget {
 
 class MoneySaverListState extends State<MoneySaverList> {
   var db = DatabaseConnect();
-
   // late Future<List<MoneySaverModel>> dataList;
 
   // Future<List<dynamic>> getDataProvider() {
@@ -27,6 +26,10 @@ class MoneySaverListState extends State<MoneySaverList> {
   //   dataList = db.getData(); //initialized once
   //   super.initState();
   // }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class MoneySaverListState extends State<MoneySaverList> {
             future:
                 Provider.of<MoneySaverDetailProvider>(context, listen: false)
                     .getDataProvider(),
+            // ignore: void_checks
             initialData: const [],
             builder: (context, snapshot) => snapshot.connectionState ==
                     ConnectionState.waiting

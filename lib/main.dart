@@ -6,8 +6,9 @@ import 'package:imoney_saver/views/widgets/lists.dart';
 import 'package:intl/intl.dart';
 import 'package:mat_month_picker_dialog/mat_month_picker_dialog.dart';
 import 'package:provider/provider.dart';
-// import 'models/db_model.dart';
+import 'models/db_model.dart';
 // import 'models/money_saver_model.dart';
+import 'models/money_saver_model.dart';
 import 'net/notification_api.dart';
 import 'views/widgets/navigation.dart';
 
@@ -80,13 +81,14 @@ class MyAppState extends State<Home> {
 
   DateTime selectedDate = DateTime.now();
   final appName = const Text('Money Saver');
-  String _month = 'January';
+  String _month = DateFormat("MMMM").format(DateTime.now()).toString();
+  String dateStr = '';
 
   @override
   void initState() {
     super.initState();
-    NotificationApi.init();
 
+    NotificationApi.init();
     listenNotification();
   }
 
@@ -110,7 +112,10 @@ class MyAppState extends State<Home> {
       setState(() {
         selectedDate = picked;
         _month = DateFormat("MMMM").format(picked).toString();
-        // print(picked);
+        dateStr = DateFormat('MM-yyyy').format(selectedDate).toString();
+        Provider.of<MoneySaverDetailProvider>(context, listen: false)
+            .getSelectedDataProvider(dateStr);
+        // print('dateStr:' + dateStr); //dateStr:06-2022
       });
     }
   }

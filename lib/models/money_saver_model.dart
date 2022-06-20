@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class MoneySaverModel {
   int? id;
   final String remarks;
@@ -17,14 +19,13 @@ class MoneySaverModel {
 
   //to save data in DB need to convert using Map
   Map<String, dynamic> toMap() {
+    // DateFormat formatter = DateFormat('yyyy-mm-dd');
     return {
       'id': id,
       'remarks': remarks,
       'creationDate':
           creationDate.toString(), //sqflite does not support datetime data type
       'money': money,
-      // 'incomeMoney': incomeMoney,
-      // 'expenseMoney': expenseMoney,
       'category': category,
       'isChecked': isChecked ? 1 : 0 //sqflite does not support boolean
     };

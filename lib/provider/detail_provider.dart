@@ -31,6 +31,20 @@ class MoneySaverDetailProvider with ChangeNotifier {
     return deleteData;
   }
 
+  Future<void> getSelectedDataProvider(String dateStr) async {
+    final items = await db.getSelectedData(dateStr);
+    _dataList = items
+        .map((data) => MoneySaverModel(
+            id: data.id,
+            remarks: data.remarks,
+            money: data.money,
+            category: data.category,
+            creationDate: data.creationDate,
+            isChecked: data.isChecked))
+        .toList();
+    notifyListeners();
+  }
+
   Future<void> getDataProvider() async {
     final items = await db.getData();
     _dataList = items

@@ -158,12 +158,12 @@ class MoneySaverDetails extends StatelessWidget {
                 category: '',
                 creationDate: DateTime.now(),
                 isChecked: false))
-            .then((value) {
-          NotificationApi.showNotification(
+            .then((value) async {
+          await NotificationApi.showNotification(
               title: 'Successfully Deleted!',
               body: data.remarks,
               payload: 'test payload');
-          Navigator.of(context).pop();
+          await Navigator.of(context).pushNamed('/');
         });
         // dismiss dialog
       },
