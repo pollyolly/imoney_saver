@@ -6,9 +6,9 @@ import 'package:imoney_saver/views/widgets/lists.dart';
 import 'package:intl/intl.dart';
 import 'package:mat_month_picker_dialog/mat_month_picker_dialog.dart';
 import 'package:provider/provider.dart';
-import 'models/db_model.dart';
+// import 'models/db_model.dart';
 // import 'models/money_saver_model.dart';
-import 'models/money_saver_model.dart';
+// import 'models/money_saver_model.dart';
 import 'net/notification_api.dart';
 import 'views/widgets/navigation.dart';
 
@@ -37,8 +37,6 @@ void main() async {
   //     creationDate: DateTime.now(),
   //     isChecked: false));
 
-// https://stackoverflow.com/questions/64105755/use-provider-and-futurebuilder-not-possible
-// https://stackoverflow.com/questions/56359049/setting-provider-value-in-futurebuilder
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(

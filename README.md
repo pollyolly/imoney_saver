@@ -4,13 +4,9 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Below are the resources used to create this project.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Provider](https://github.com/pollyolly/flutter_sqflite_example/blob/master/lib/provider/product.dart)
+- [Notification](https://www.youtube.com/watch?v=bRy5dmts3X8)
+- [Routing](https://www.youtube.com/watch?v=nyvwx7o277U)
+- [sqflite](https://www.youtube.com/watch?v=n5tiox4kSWw)
