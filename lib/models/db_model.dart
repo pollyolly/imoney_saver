@@ -61,30 +61,16 @@ class DatabaseConnect {
     return data;
   }
 
-  Future<List> testgetSelectedData(String dateStr) async {
-    final db = await database;
-    // List<Map<String, dynamic>> items = await db
-    //     .query('money_saver', where: 'creationDate=?', whereArgs: [dateStr]);
-    List<Map<String, dynamic>> items = await db.rawQuery(
-        'SELECT * FROM money_saver WHERE strftime("%m-%Y", creationDate) == ?',
-        [dateStr]);
-    return List.generate(
-        items.length,
-        (i) => MoneySaverModel(
-            id: items[i]['id'],
-            remarks: items[i]['remarks'],
-            money: items[i]['money'],
-            category: items[i]['category'],
-            creationDate: DateTime.parse(items[i][
-                'creationDate']), //text format from model convert to datetime format for display
-            isChecked: items[i]['isChecked'] == 1 ? true : false));
-  }
-
   Future<List<MoneySaverModel>> getSelectedData(String dateStr) async {
     final db = await database;
-    List<Map<String, dynamic>> items = await db.rawQuery(
-        'SELECT * FROM money_saver WHERE strftime("%m-%Y", creationDate) = ?',
-        [dateStr]);
+    // List<Map<String, dynamic>> items = await db.rawQuery(
+    //     'SELECT * FROM money_saver WHERE strftime("%m-%Y", creationDate) = ? ORDER BY creationDate DESC',
+    //     [dateStr]);
+    List<Map<String, dynamic>> items = await db.query('money_saver',
+        where: 'strftime("%m-%Y", creationDate) = ?',
+        orderBy: 'creationDate DESC',
+        // groupBy: 'category',
+        whereArgs: [dateStr]);
     return List.generate(
         items.length,
         (i) => MoneySaverModel(
@@ -104,6 +90,7 @@ class DatabaseConnect {
     List<Map<String, dynamic>> items = await db.query('money_saver',
         where: 'strftime("%m-%Y", creationDate) = ?',
         orderBy: 'creationDate DESC',
+        // groupBy: 'category',
         whereArgs: [currentDate]);
 
     return List.generate(

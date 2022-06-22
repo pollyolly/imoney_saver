@@ -114,11 +114,13 @@ class MoneySaverDetails extends StatelessWidget {
                                       color: Color(0xFF8F8F8F))),
                               Padding(
                                   padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(data.remarks,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFF8F8F8F)))),
+                                  child: SizedBox(
+                                      width: 200,
+                                      child: Text(data.remarks,
+                                          overflow: TextOverflow.fade,
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              color: Color(0xFF8F8F8F))))),
                             ],
                           ))
                     ],

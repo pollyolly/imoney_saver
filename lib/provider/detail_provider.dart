@@ -59,16 +59,16 @@ class MoneySaverDetailProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<List<MoneySaverModel>> get getDataProvider async {
-  //   final items = await db.getData();
-  //   return items
-  //       .map((data) => MoneySaverModel(
-  //           id: data.id,
-  //           remarks: data.remarks,
-  //           money: data.money,
-  //           category: data.category,
-  //           creationDate: data.creationDate,
-  //           isChecked: data.isChecked))
-  //       .toList();
-  // }
+  Future<List<MoneySaverModel>> get getDataJsonProvider async {
+    final items = await db.getData();
+    return items
+        .map((data) => MoneySaverModel(
+            id: data.id,
+            remarks: data.remarks,
+            money: data.money,
+            category: data.category,
+            creationDate: data.creationDate,
+            isChecked: data.isChecked))
+        .toList();
+  }
 }

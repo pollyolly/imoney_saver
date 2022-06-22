@@ -30,84 +30,82 @@ class MoneySaverState extends State<MoneySaverCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-        child: Row(children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/detail',
-                      arguments: MoneySaverArguments(
-                          widget.id,
-                          widget.remarks,
-                          widget.money,
-                          widget.category,
-                          widget.creationDate,
-                          widget.isChecked));
-                },
-                icon: widget.category == 'Expense'
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(0), topRight: Radius.circular(0))),
+        margin: const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
+        // margin: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+        child: InkWell(
+            onTap: () => Navigator.of(context).pushNamed('/detail',
+                arguments: MoneySaverArguments(
+                    widget.id,
+                    widget.remarks,
+                    widget.money,
+                    widget.category,
+                    widget.creationDate,
+                    widget.isChecked)),
+            child: Row(children: [
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: widget.category == 'Expense'
                     ? const Icon(Icons.arrow_downward,
                         size: 35, color: Color(0xFFFF1744))
                     : const Icon(Icons.arrow_upward,
-                        size: 35, color: Color(0xFF00E676))),
-          ),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        size: 35, color: Color(0xFF00E676)),
+              ),
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Container(
-                  Text(widget.formatter.format(widget.creationDate).toString(),
-                      style: const TextStyle(
-                          fontSize: 12, color: Color(0xFF8F8F8F))),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(widget.formatter.format(widget.creationDate).toString(),
+                  //         style: const TextStyle(
+                  //             fontSize: 12, color: Color(0xFF8F8F8F))),
+                  //     Row(
+                  //       children: [
+                  //         Text(
+                  //           "${widget.category}: ",
+                  //           style: const TextStyle(
+                  //               fontSize: 12, color: Color(0xFF8F8F8F)),
+                  //         ),
+                  //         Text(
+                  //           widget.category == 'Expense'
+                  //               ? '-${widget.money}'
+                  //               : '+${widget.money}',
+                  //           style: const TextStyle(
+                  //               fontSize: 12, color: Color(0xFF8F8F8F)),
+                  //         ),
+                  //         const SizedBox(
+                  //           width: 10,
+                  //         ),
+                  //       ],
+                  //     )
+                  //   ],
                   // ),
                   Row(
-                    children: [
-                      Text(
-                        "${widget.category}: ",
-                        style: const TextStyle(
-                            fontSize: 12, color: Color(0xFF8F8F8F)),
-                      ),
-                      Text(
-                        widget.category == 'Expense'
-                            ? '-${widget.money}'
-                            : '+${widget.money}',
-                        style: const TextStyle(
-                            fontSize: 12, color: Color(0xFF8F8F8F)),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                    ],
-                  )
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                            width: 200,
+                            child: Text(widget.remarks,
+                                overflow: TextOverflow.fade,
+                                style: const TextStyle(fontSize: 15))),
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          child: Text(
+                            widget.category == 'Expense'
+                                ? '-${widget.money}'
+                                : '+${widget.money}',
+                            style: const TextStyle(
+                                fontSize: 15, color: Color(0xFF8F8F8F)),
+                          ),
+                        )
+                      ])
                 ],
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text(
-                    overflow: TextOverflow.ellipsis,
-                    widget.remarks,
-                    style: const TextStyle(fontSize: 15)),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: Text(
-                    widget.category == 'Expense'
-                        ? '-${widget.money}'
-                        : '+${widget.money}',
-                    style:
-                        const TextStyle(fontSize: 15, color: Color(0xFF8F8F8F)),
-                  ),
-                )
-                // const SizedBox(
-                //   width: 0,
-                // ),
-              ])
-            ],
-          )),
-        ]));
+              )),
+            ])));
   }
 }

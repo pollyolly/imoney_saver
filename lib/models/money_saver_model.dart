@@ -31,6 +31,27 @@ class MoneySaverModel {
     };
   }
 
+  // MoneySaverModel.fromJson(Map<String, dynamic> json)
+  //     : id = json['id'],
+  //       remarks = json['remarks'],
+  //       creationDate = json['creationDate'],
+  //       money = json['money'],
+  //       category = json['category'],
+  //       isChecked = json['isChecked'];
+
+  // Map<String, dynamic> toJson() {
+  //   // DateFormat formatter = DateFormat('yyyy-mm-dd');
+  //   return {
+  //     'id': id,
+  //     'remarks': remarks,
+  //     'creationDate':
+  //         creationDate.toString(), //sqflite does not support datetime data type
+  //     'money': money,
+  //     'category': category,
+  //     'isChecked': isChecked ? 1 : 0 //sqflite does not support boolean
+  //   };
+  // }
+
   //For Debugging //Checking
   @override
   String toString() {
