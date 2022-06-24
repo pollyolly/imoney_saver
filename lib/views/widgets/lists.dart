@@ -37,15 +37,19 @@ class MoneySaverListState extends State<MoneySaverList> {
     super.initState();
   }
 
+  Future<void> setListInitialValues() async {
+    String dateNow = DateFormat('MM-yyyy').format(DateTime.now()).toString();
+    await Provider.of<MoneySaverDetailProvider>(context, listen: false)
+        .getchartDataProvider(dateNow);
+  }
+
 //GROUPEDLISTVIEW SAMPLE IMPLEMENTATION USING PROVIDER
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: FutureBuilder(
-            future:
-                Provider.of<MoneySaverDetailProvider>(context, listen: false)
-                    .getDataProvider(),
+            future: setListInitialValues(), //Initialized Value in Provider
             // ignore: void_checks
             initialData: const [],
             builder: (context, snapshot) => snapshot.connectionState ==
@@ -93,7 +97,7 @@ class MoneySaverListState extends State<MoneySaverList> {
                         // print(groupByGroups);
                         // print(value);
                         return Card(
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(0),
                                     bottomRight: Radius.circular(0))),

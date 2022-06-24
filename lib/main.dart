@@ -85,7 +85,7 @@ class MyAppState extends State<Home> {
   @override
   void initState() {
     super.initState();
-
+    _month = DateFormat("MMMM").format(DateTime.now()).toString();
     NotificationApi.init();
     listenNotification();
   }

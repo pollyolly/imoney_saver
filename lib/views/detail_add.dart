@@ -98,16 +98,16 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
-                    height: 60,
+                    // height: 60,
                     width: 310,
                     child: Center(
                       child: TextFormField(
                         controller: remarksText,
                         autofocus: false,
-                        maxLines: 2,
+                        // maxLines: 2,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 15),
+                            fontWeight: FontWeight.normal, fontSize: 20),
                         decoration:
                             const InputDecoration(border: OutlineInputBorder()),
                       ),

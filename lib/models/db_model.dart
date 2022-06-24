@@ -69,7 +69,6 @@ class DatabaseConnect {
     List<Map<String, dynamic>> items = await db.query('money_saver',
         where: 'strftime("%m-%Y", creationDate) = ?',
         orderBy: 'creationDate DESC',
-        // groupBy: 'category',
         whereArgs: [dateStr]);
     return List.generate(
         items.length,
@@ -90,7 +89,6 @@ class DatabaseConnect {
     List<Map<String, dynamic>> items = await db.query('money_saver',
         where: 'strftime("%m-%Y", creationDate) = ?',
         orderBy: 'creationDate DESC',
-        // groupBy: 'category',
         whereArgs: [currentDate]);
 
     return List.generate(

@@ -30,7 +30,7 @@ class MoneySaverState extends State<MoneySaverCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(0), topRight: Radius.circular(0))),
         margin: const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),

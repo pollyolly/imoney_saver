@@ -10,3 +10,4 @@ Below are the resources used to create this project.
 - [Notification](https://www.youtube.com/watch?v=bRy5dmts3X8)
 - [Routing](https://www.youtube.com/watch?v=nyvwx7o277U)
 - [sqflite](https://www.youtube.com/watch?v=n5tiox4kSWw)
+- [fl_chart](https://github.com/imaNNeoFighT/fl_chart/blob/master/example/lib/pie_chart/samples/pie_chart_sample2.dart)

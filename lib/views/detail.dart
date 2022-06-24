@@ -19,116 +19,104 @@ class MoneySaverDetails extends StatelessWidget {
     final detailProvider =
         Provider.of<MoneySaverDetailProvider>(context, listen: false);
     return Scaffold(
-      appBar: AppBar(title: const Text('Details')),
+      appBar: AppBar(
+        title: const Text('Details'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: IconButton(
+                onPressed: () => showAlertDialog(context, detailProvider),
+                //
+                icon: const Icon(Icons.delete_outline_outlined, size: 25)),
+          ),
+        ],
+      ),
       body: Card(
-          margin:
-              const EdgeInsets.only(top: 5, bottom: 340, left: 10, right: 10),
+          margin: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
           child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               // child: Expanded(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                        width: 10,
-                      ),
-                      IconButton(
-                          tooltip: 'Delete Details',
-                          onPressed: () {
-                            showAlertDialog(context, detailProvider);
-                          },
-                          icon: const Icon(Icons.delete_outline_outlined))
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                          height: 40,
-                          child: Row(
-                            children: [
-                              const Text('Category:',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF8F8F8F))),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(data.category,
+                  SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          const Text('Category:',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF8F8F8F))),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(data.category,
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Color(0xFF8F8F8F)))),
+                        ],
+                      )),
+                  // ]),
+                  // Row(children: [
+                  SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          const Text('Money:',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF8F8F8F))),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                  data.category == 'Expense'
+                                      ? '-${data.money}'
+                                      : '+${data.money}',
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Color(0xFF8F8F8F)))),
+                        ],
+                      )),
+                  // ]),
+                  SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          const Text('Created:',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF8F8F8F))),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                  formatter
+                                      .format(data.creationDate)
+                                      .toString(),
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Color(0xFF8F8F8F)))),
+                        ],
+                      )),
+                  SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          const Text('Remarks:',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF8F8F8F))),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: SizedBox(
+                                  width: 200,
+                                  child: Text(data.remarks,
+                                      overflow: TextOverflow.fade,
                                       style: const TextStyle(
                                           fontSize: 15,
-                                          color: Color(0xFF8F8F8F)))),
-                            ],
-                          )),
-                      SizedBox(
-                          height: 40,
-                          child: Row(
-                            children: [
-                              const Text('Money:',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF8F8F8F))),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                      data.category == 'Expense'
-                                          ? '-${data.money}'
-                                          : '+${data.money}',
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFF8F8F8F)))),
-                            ],
-                          )),
-                      SizedBox(
-                          height: 40,
-                          child: Row(
-                            children: [
-                              const Text('Created:',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF8F8F8F))),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                      formatter
-                                          .format(data.creationDate)
-                                          .toString(),
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFF8F8F8F)))),
-                            ],
-                          )),
-                      SizedBox(
-                          height: 40,
-                          child: Row(
-                            children: [
-                              const Text('Remarks:',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF8F8F8F))),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: SizedBox(
-                                      width: 200,
-                                      child: Text(data.remarks,
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color(0xFF8F8F8F))))),
-                            ],
-                          ))
-                    ],
-                  )
+                                          color: Color(0xFF8F8F8F))))),
+                        ],
+                      ))
                 ],
-              )
-              // )
-              )),
+              ))),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Edit Details',
         onPressed: () => Navigator.of(context).pushNamed('/update-detail',

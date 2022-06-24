@@ -31,6 +31,20 @@ class MoneySaverDetailProvider with ChangeNotifier {
     return deleteData;
   }
 
+  Future<void> getchartDataProvider(String dateStr) async {
+    final items = await db.getSelectedData(dateStr);
+    _dataList = items
+        .map((data) => MoneySaverModel(
+            id: data.id,
+            remarks: data.remarks,
+            money: data.money,
+            category: data.category,
+            creationDate: data.creationDate,
+            isChecked: data.isChecked))
+        .toList();
+    notifyListeners();
+  }
+
   Future<void> getSelectedDataProvider(String dateStr) async {
     final items = await db.getSelectedData(dateStr);
     _dataList = items
@@ -57,18 +71,5 @@ class MoneySaverDetailProvider with ChangeNotifier {
             isChecked: data.isChecked))
         .toList();
     notifyListeners();
-  }
-
-  Future<List<MoneySaverModel>> get getDataJsonProvider async {
-    final items = await db.getData();
-    return items
-        .map((data) => MoneySaverModel(
-            id: data.id,
-            remarks: data.remarks,
-            money: data.money,
-            category: data.category,
-            creationDate: data.creationDate,
-            isChecked: data.isChecked))
-        .toList();
   }
 }
