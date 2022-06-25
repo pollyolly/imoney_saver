@@ -1,4 +1,4 @@
-import 'dart:math';
+// import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class MoneySaverChartState extends State<MoneySaverChart> {
     num? sumExpense = 0;
     groupedData =
         Provider.of<MoneySaverDetailProvider>(context, listen: false).dataList;
-    print('group data:' + groupedData.toString());
+    // print('group data:' + groupedData.toString());
     if (groupedData.isNotEmpty) {
       groupByGroups = groupBy(groupedData, (obj) => obj.category);
       sumIncome =
@@ -196,7 +196,7 @@ class MoneySaverChartState extends State<MoneySaverChart> {
         switch (i) {
           case 0: //Income
             return PieChartSectionData(
-              color: Color(0xFF00E676),
+              color: const Color(0xFF00E676),
               value: percentIncome == null
                   ? 0
                   : double.parse(percentIncome.toString()),

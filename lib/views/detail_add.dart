@@ -40,7 +40,7 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
       setState(() {
         selectedDate = picked;
         _month = DateFormat("MMM/d").format(picked).toString();
-        print(selectedDate);
+        // print(selectedDate);
       });
     }
   }
@@ -367,6 +367,13 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
                                 width: 100,
                                 child: ElevatedButton(
                                     onPressed: () async {
+                                      // NotificationApi.showScheduledNotification(
+                                      //     title: '',
+                                      //     body: '',
+                                      //     payload: '',
+                                      //     scheduleDate: DateTime.now()
+                                      //         .add(Duration(seconds: 12)));
+
                                       String money = moneyText.text.isNotEmpty
                                           ? moneyText.text
                                           : '0.00';

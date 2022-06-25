@@ -9,8 +9,17 @@ class MoneySaverAbout extends StatelessWidget {
         appBar: AppBar(title: const Text('About')),
         body: Column(
           children: const [
-            Expanded(
-              child: Text('About'),
+            Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: Text('Money Saver',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      )),
+                )),
+            Center(
+              child: Text('Version 1.0'),
             )
           ],
         ));

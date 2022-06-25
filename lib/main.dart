@@ -59,8 +59,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: appTitle,
         theme: ThemeData(
-          primarySwatch: Colors.yellow,
+          primarySwatch: Colors.orange,
         ),
+        themeMode: ThemeMode.system,
         // home: Home(),
         initialRoute: '/',
         onGenerateRoute: RouterGenerator.generateRoute);
@@ -86,7 +87,8 @@ class MyAppState extends State<Home> {
   void initState() {
     super.initState();
     _month = DateFormat("MMMM").format(DateTime.now()).toString();
-    NotificationApi.init();
+    NotificationApi.init(initScheduled: true);
+
     listenNotification();
   }
 

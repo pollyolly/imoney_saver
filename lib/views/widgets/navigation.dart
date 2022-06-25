@@ -9,26 +9,23 @@ class NavigationDrawer extends StatelessWidget {
         child: ListView(padding: EdgeInsets.zero, children: [
       const DrawerHeader(
         decoration: BoxDecoration(
-          color: Colors.yellow,
+          color: Colors.orange,
         ),
         child: Text('Money Saver'),
       ),
       ListTile(
           title: const Text('Charts'),
           onTap: () {
-            // Navigator.pop(context);
             Navigator.of(context).pushNamed('/chart');
           }),
       ListTile(
           title: const Text('Settings'),
           onTap: () {
-            // Navigator.pop(context);
             Navigator.of(context).pushNamed('/setting');
           }),
       ListTile(
           title: const Text('About'),
           onTap: () {
-            // Navigator.pop(context);
             Navigator.of(context).pushNamed('/about');
           }),
       ListTile(
