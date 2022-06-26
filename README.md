@@ -11,6 +11,7 @@ Below are the resources used to create this project.
 - [Routing](https://www.youtube.com/watch?v=nyvwx7o277U)
 - [sqflite](https://www.youtube.com/watch?v=n5tiox4kSWw)
 - [fl_chart](https://github.com/imaNNeoFighT/fl_chart/blob/master/example/lib/pie_chart/samples/pie_chart_sample2.dart)
+- [Theme Switcher](https://codesource.io/building-theme-switcher-using-provider-and-shared-preferences/)
 
 ## Notification Configuration
 AppDelegate.swift

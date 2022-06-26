@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:imoney_saver/routes/route_generator.dart';
 // import 'package:imoney_saver/views/about.dart';
 import 'package:imoney_saver/views/widgets/lists.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 // import 'models/money_saver_model.dart';
 import 'net/notification_api.dart';
 import 'views/widgets/navigation.dart';
+import 'package:imoney_saver/ui/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding
@@ -39,32 +41,31 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (context) => MoneySaverDetailProvider()),
       ChangeNotifierProvider(
-        create: (context) => MoneySaverDetailProvider(),
-      ),
-      // ChangeNotifierProvider.value(
-      //   value: MoneySaverDetailProvider(),
-      // ),
+          create: (context) =>
+              MoneySaverThemeProvider()) //MaterialApp not detected),
     ],
     child: const MyApp(),
   ));
 }
 
 class MyApp extends StatelessWidget {
+  final String appTitle = "Money Saver";
   const MyApp({Key? key}) : super(key: key);
-  final String appTitle = "Flutter Demo";
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: appTitle,
-        theme: ThemeData(
-          primarySwatch: Colors.orange,
-        ),
-        themeMode: ThemeMode.system,
-        // home: Home(),
-        initialRoute: '/',
-        onGenerateRoute: RouterGenerator.generateRoute);
+    return Consumer<MoneySaverThemeProvider>(
+        builder: (context, MoneySaverThemeProvider value, child) {
+      return MaterialApp(
+          title: appTitle,
+          theme: value.darkTheme ? Themes.darkTheme : Themes.lightTheme,
+          darkTheme: value.darkTheme ? Themes.darkTheme : Themes.lightTheme,
+          themeMode: value.darkTheme ? darkThememode : lightThememode,
+          initialRoute: '/',
+          onGenerateRoute: RouterGenerator.generateRoute);
+    });
+    // );
   }
 }
 
@@ -76,8 +77,6 @@ class Home extends StatefulWidget {
 }
 
 class MyAppState extends State<Home> {
-  // Home({Key? key}) : super(key: key);
-
   DateTime selectedDate = DateTime.now();
   final appName = const Text('Money Saver');
   String _month = DateFormat("MMMM").format(DateTime.now()).toString();

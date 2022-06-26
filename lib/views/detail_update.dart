@@ -115,7 +115,7 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                         maxLines: 2,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 15),
+                            fontWeight: FontWeight.normal, fontSize: 20),
                         decoration:
                             const InputDecoration(border: OutlineInputBorder()),
                       ),
@@ -198,7 +198,7 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
-                                        fontSize: 20),
+                                        fontSize: 18),
                                   ),
                                 ),
                               ),
@@ -456,7 +456,7 @@ class NumberButton extends StatelessWidget {
           child: Text(
             number.toString(),
             style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
+                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
           ),
         ),
       ),

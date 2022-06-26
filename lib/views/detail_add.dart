@@ -186,7 +186,7 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
-                                        fontSize: 20),
+                                        fontSize: 18),
                                   ),
                                 ),
                               ),
@@ -447,7 +447,7 @@ class NumberButton extends StatelessWidget {
           child: Text(
             number.toString(),
             style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
+                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
           ),
         ),
       ),

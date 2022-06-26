@@ -8,6 +8,7 @@ import 'package:imoney_saver/views/about.dart';
 import 'package:imoney_saver/views/rate.dart';
 import 'package:imoney_saver/views/detail_update.dart';
 import 'package:imoney_saver/views/detail_add.dart';
+import 'package:imoney_saver/views/settings/theme_setting.dart';
 
 class RouterGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -20,6 +21,8 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (_) => const MoneySaverChart());
       case '/setting':
         return MaterialPageRoute(builder: (_) => const MoneySaverSetting());
+      case '/theme-setting':
+        return MaterialPageRoute(builder: (_) => const ThemeSetting());
       case '/about':
         return MaterialPageRoute(builder: (_) => const MoneySaverAbout());
       case '/rate':

@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
@@ -31,12 +31,15 @@ class NotificationApi {
       onNotification.add(payload!);
     });
 
-    if (initScheduled) {
-      //This is important to make scheduled notification work
-      tz.initializeTimeZones();
-      final locationName = await FlutterNativeTimezone.getLocalTimezone();
-      tz.setLocalLocation(tz.getLocation(locationName));
-    }
+    //Getting GMT timezone Error in Emulator
+    //Must Use actual Device
+    // if (initScheduled) {
+    //   //This is important to make scheduled notification work
+    //   tz.initializeTimeZones();
+    //   final locationName = await FlutterNativeTimezone.getLocalTimezone();
+    //   print(locationName);
+    //   tz.setLocalLocation(tz.getLocation(locationName));
+    // }
   }
 
   static Future showNotification({
@@ -135,5 +138,13 @@ class NotificationApi {
       scheduleDate = scheduleDate.add(const Duration(days: 1));
     }
     return scheduleDate;
+  }
+
+  static Future removeAllNotification() async {
+    await notification.cancelAll();
+  }
+
+  static Future removeNotification() async {
+    await notification.cancel(0);
   }
 }

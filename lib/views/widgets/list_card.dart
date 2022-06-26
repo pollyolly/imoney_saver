@@ -58,33 +58,6 @@ class MoneySaverState extends State<MoneySaverCard> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Text(widget.formatter.format(widget.creationDate).toString(),
-                  //         style: const TextStyle(
-                  //             fontSize: 12, color: Color(0xFF8F8F8F))),
-                  //     Row(
-                  //       children: [
-                  //         Text(
-                  //           "${widget.category}: ",
-                  //           style: const TextStyle(
-                  //               fontSize: 12, color: Color(0xFF8F8F8F)),
-                  //         ),
-                  //         Text(
-                  //           widget.category == 'Expense'
-                  //               ? '-${widget.money}'
-                  //               : '+${widget.money}',
-                  //           style: const TextStyle(
-                  //               fontSize: 12, color: Color(0xFF8F8F8F)),
-                  //         ),
-                  //         const SizedBox(
-                  //           width: 10,
-                  //         ),
-                  //       ],
-                  //     )
-                  //   ],
-                  // ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
