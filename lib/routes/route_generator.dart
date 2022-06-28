@@ -8,6 +8,7 @@ import 'package:imoney_saver/views/about.dart';
 import 'package:imoney_saver/views/rate.dart';
 import 'package:imoney_saver/views/detail_update.dart';
 import 'package:imoney_saver/views/detail_add.dart';
+import 'package:imoney_saver/views/settings/notification_setting.dart';
 import 'package:imoney_saver/views/settings/theme_setting.dart';
 
 class RouterGenerator {
@@ -23,6 +24,8 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (_) => const MoneySaverSetting());
       case '/theme-setting':
         return MaterialPageRoute(builder: (_) => const ThemeSetting());
+      case '/notification-setting':
+        return MaterialPageRoute(builder: (_) => const NotificationSetting());
       case '/about':
         return MaterialPageRoute(builder: (_) => const MoneySaverAbout());
       case '/rate':

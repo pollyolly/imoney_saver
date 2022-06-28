@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -33,13 +34,13 @@ class NotificationApi {
 
     //Getting GMT timezone Error in Emulator
     //Must Use actual Device
-    // if (initScheduled) {
-    //   //This is important to make scheduled notification work
-    //   tz.initializeTimeZones();
-    //   final locationName = await FlutterNativeTimezone.getLocalTimezone();
-    //   print(locationName);
-    //   tz.setLocalLocation(tz.getLocation(locationName));
-    // }
+    if (initScheduled && !kDebugMode) {
+      //This is important to make scheduled notification work
+      tz.initializeTimeZones();
+      final locationName = await FlutterNativeTimezone.getLocalTimezone();
+      // print(locationName);
+      tz.setLocalLocation(tz.getLocation(locationName));
+    }
   }
 
   static Future showNotification({
@@ -83,14 +84,14 @@ class NotificationApi {
     String? title,
     String? body,
     String? payload,
-    required DateTime scheduleDate,
+    required Time scheduleDate,
   }) async =>
       {
         notification.zonedSchedule(
             id,
             title,
             body,
-            _scheduleDaily(Time(8)), //8am Time(8,3,12)
+            _scheduleDaily(scheduleDate), //8am Time(8,3,12)
             await notificationDetails(),
             payload: payload,
             androidAllowWhileIdle: true,

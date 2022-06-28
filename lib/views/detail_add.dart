@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/theme_provider.dart';
+import 'package:imoney_saver/ui/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -65,28 +67,31 @@ class MoneySaverAddDetailState extends State<MoneySaverAddDetail> {
         appBar: AppBar(
           title: const Text('Add Details'),
           actions: [
-            DropdownButton<String>(
-              value: dropdownValue.isEmpty ? 'Expense' : dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 10,
-              style: const TextStyle(
-                  height: 2.5,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: <String>['Expense', 'Income']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            )
+            Consumer<MoneySaverThemeProvider>(
+                builder: (context, MoneySaverThemeProvider value, child) {
+              return DropdownButton<String>(
+                value: dropdownValue.isEmpty ? 'Expense' : dropdownValue,
+                icon: const Icon(Icons.arrow_downward),
+                elevation: 10,
+                style: TextStyle(
+                    height: 2.5,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: value.darkTheme ? Colors.white : Colors.black),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items: <String>['Expense', 'Income']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              );
+            })
           ],
         ),
         body: Card(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/notification_provider.dart';
 import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:imoney_saver/routes/route_generator.dart';
 // import 'package:imoney_saver/views/about.dart';
@@ -42,9 +43,9 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => MoneySaverDetailProvider()),
+      ChangeNotifierProvider(create: (context) => MoneySaverThemeProvider()),
       ChangeNotifierProvider(
-          create: (context) =>
-              MoneySaverThemeProvider()) //MaterialApp not detected),
+          create: (context) => ScheduleProvider()) //MaterialApp not detected),
     ],
     child: const MyApp(),
   ));

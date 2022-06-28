@@ -4,6 +4,7 @@ import 'package:imoney_saver/models/money_saver_arguments.dart';
 import 'package:imoney_saver/models/money_saver_model.dart';
 import 'package:imoney_saver/net/notification_api.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -72,29 +73,33 @@ class MoneySaverUpdateDetailState extends State<MoneySaverUpdateDetail> {
         appBar: AppBar(
           title: const Text('Update Details'),
           actions: [
-            DropdownButton<String>(
-              value:
-                  dropdownValue.isEmpty ? widget.data.category : dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 10,
-              style: const TextStyle(
-                  height: 2.5,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: <String>['Expense', 'Income']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            )
+            Consumer<MoneySaverThemeProvider>(
+                builder: (context, MoneySaverThemeProvider value, child) {
+              return DropdownButton<String>(
+                value: dropdownValue.isEmpty
+                    ? widget.data.category
+                    : dropdownValue,
+                icon: const Icon(Icons.arrow_downward),
+                elevation: 10,
+                style: TextStyle(
+                    height: 2.5,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: value.darkTheme ? Colors.white : Colors.black),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items: <String>['Expense', 'Income']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              );
+            })
           ],
         ),
         body: Card(

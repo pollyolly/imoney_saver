@@ -24,24 +24,21 @@ class ThemeSettingState extends State<ThemeSetting> {
                         topRight: Radius.circular(0))),
                 margin: const EdgeInsets.only(
                     top: 5, bottom: 5, left: 10, right: 10),
-                child: Row(children: [
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Light/Dark Mode:'),
-                            SizedBox(
-                                width: 100,
-                                child: Consumer<MoneySaverThemeProvider>(
-                                    builder: (context, value, child) {
-                                  return CupertinoSwitch(
-                                      value: value.darkTheme,
-                                      onChanged: (_) => value.toggleTheme());
-                                })),
-                          ]))
-                  // ),
-                ])),
+                child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Light/Dark Mode:'),
+                          SizedBox(child: Consumer<MoneySaverThemeProvider>(
+                              builder: (context, value, child) {
+                            return CupertinoSwitch(
+                                value: value.darkTheme,
+                                onChanged: (_) => value.toggleTheme());
+                          })),
+                        ]))
+                // ),
+                ),
           ],
         ));
   }

@@ -7,27 +7,6 @@ class MoneySaverSetting extends StatefulWidget {
 }
 
 class MoneySaverSettingState extends State<MoneySaverSetting> {
-  TimeOfDay selectedTime = TimeOfDay.now();
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? selectedTime24Hour = await showTimePicker(
-      context: context,
-      initialTime: const TimeOfDay(hour: 10, minute: 47),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
-        );
-      },
-    );
-    if (selectedTime24Hour != null && selectedTime24Hour != selectedTime) {
-      setState(() {
-        selectedTime = selectedTime24Hour;
-        print('Selected Time:' + selectedTime.toString());
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +21,14 @@ class MoneySaverSettingState extends State<MoneySaverSetting> {
                 margin: const EdgeInsets.only(
                     top: 5, bottom: 5, left: 10, right: 10),
                 child: InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.of(context)
+                        .pushNamed('/notification-setting'),
                     child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
-                              Text('Schedule Notification'),
+                              Text('Schedule Reminder'),
                               Icon(Icons.timer, size: 25),
                             ])))),
             Card(
@@ -59,9 +39,8 @@ class MoneySaverSettingState extends State<MoneySaverSetting> {
                 margin: const EdgeInsets.only(
                     top: 5, bottom: 5, left: 10, right: 10),
                 child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/theme-setting');
-                    },
+                    onTap: () =>
+                        Navigator.of(context).pushNamed('/theme-setting'),
                     child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
