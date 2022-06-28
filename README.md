@@ -24,3 +24,16 @@ if #available(iOS 10.0, *) {
 
 return super.application(application, didFinishLaunchingWithOptions: launchOptions)
 </pre>
+
+## Change minSDK to above 18 to support Google API
+F:\Desktop\dev-flutter-projects\imoney_saver\android\app\build.gradle
+<pre>
+defaultConfig {
+        applicationId "com.example.imoney_saver"
+        // minSdkVersion flutter.minSdkVersion
+        minSdkVersion 28
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+</pre>

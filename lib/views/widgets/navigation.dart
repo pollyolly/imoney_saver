@@ -19,6 +19,10 @@ class NavigationDrawer extends StatelessWidget {
                 TextStyle(color: value.darkTheme ? Colors.grey : Colors.white),
           ),
         ),
+        Divider(
+          height: 1,
+          thickness: 1,
+        ),
         ListTile(
             title: const Text('Charts'),
             onTap: () {
