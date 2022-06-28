@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -35,12 +37,21 @@ class NotificationSettingState extends State<NotificationSetting> {
     if (selectedTime24Hour != null && selectedTime24Hour != selectedTime) {
       setState(() {
         selectedTime = selectedTime24Hour;
-        var hour = selectedTime.hour.toString();
-        var min = selectedTime.minute.toString();
-        var setTodayTime = hour + ':' + min;
+        var hour = selectedTime.hour;
+        var min = selectedTime.minute;
+        var setTodayTime =
+            TimeOfDay(hour: hour, minute: min).format(context).toString();
+        var msgList = [
+          'Please update your income and expenses. Thank you!',
+          'Did you miss updating your income and expenses?',
+          'It is time to update your income and expenses.'
+        ];
+        final _random = new Random();
+        var msg = msgList[_random.nextInt(msgList.length)];
+        NotificationApi.removeNotification(0);
         NotificationApi.showScheduledNotificationDaily(
             title: 'Reminder',
-            body: 'Please update income and expenses. Thank you!',
+            body: msg,
             payload: '',
             scheduleDate: Time(
                 selectedTime.hour, selectedTime.minute)); //Run every 12 seconds

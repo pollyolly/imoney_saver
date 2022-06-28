@@ -145,7 +145,7 @@ class NotificationApi {
     await notification.cancelAll();
   }
 
-  static Future removeNotification() async {
-    await notification.cancel(0);
+  static Future removeNotification(int id) async {
+    await notification.cancel(id);
   }
 }

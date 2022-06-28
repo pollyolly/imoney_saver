@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imoney_saver/models/money_saver_model.dart';
 import 'package:imoney_saver/net/notification_api.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:imoney_saver/models/money_saver_arguments.dart';
 import 'package:imoney_saver/models/db_model.dart';
@@ -36,87 +37,101 @@ class MoneySaverDetails extends StatelessWidget {
           child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               // child: Expanded(
-              child: Column(
-                children: [
-                  SizedBox(
-                      height: 40,
-                      child: Row(
-                        children: [
-                          const Text('Category:',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF8F8F8F))),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Text(data.category,
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Color(0xFF8F8F8F)))),
-                        ],
-                      )),
-                  // ]),
-                  // Row(children: [
-                  SizedBox(
-                      height: 40,
-                      child: Row(
-                        children: [
-                          const Text('Money:',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF8F8F8F))),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                  data.category == 'Expense'
-                                      ? '-${data.money}'
-                                      : '+${data.money}',
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Color(0xFF8F8F8F)))),
-                        ],
-                      )),
-                  // ]),
-                  SizedBox(
-                      height: 40,
-                      child: Row(
-                        children: [
-                          const Text('Created:',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF8F8F8F))),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                  formatter
-                                      .format(data.creationDate)
-                                      .toString(),
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Color(0xFF8F8F8F)))),
-                        ],
-                      )),
-                  SizedBox(
-                      height: 40,
-                      child: Row(
-                        children: [
-                          const Text('Remarks:',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF8F8F8F))),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: SizedBox(
-                                  width: 200,
-                                  child: Text(data.remarks,
-                                      overflow: TextOverflow.fade,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Color(0xFF8F8F8F))))),
-                        ],
-                      ))
-                ],
-              ))),
+              child: Consumer<MoneySaverThemeProvider>(
+                  builder: (context, theme, child) {
+                return Column(
+                  children: [
+                    SizedBox(
+                        height: 40,
+                        child: Row(
+                          children: [
+                            Text('Category:',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.darkTheme
+                                        ? Color(0xFF8F8F8F)
+                                        : Colors.orange)),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(data.category,
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF8F8F8F)))),
+                          ],
+                        )),
+                    // ]),
+                    // Row(children: [
+                    SizedBox(
+                        height: 40,
+                        child: Row(
+                          children: [
+                            Text('Money:',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.darkTheme
+                                        ? Color(0xFF8F8F8F)
+                                        : Colors.orange)),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                    data.category == 'Expense'
+                                        ? '-${data.money}'
+                                        : '+${data.money}',
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF8F8F8F)))),
+                          ],
+                        )),
+                    // ]),
+                    SizedBox(
+                        height: 40,
+                        child: Row(
+                          children: [
+                            Text('Created:',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.darkTheme
+                                        ? Color(0xFF8F8F8F)
+                                        : Colors.orange)),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                    formatter
+                                        .format(data.creationDate)
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xFF8F8F8F)))),
+                          ],
+                        )),
+                    SizedBox(
+                        height: 40,
+                        child: Row(
+                          children: [
+                            Text('Remarks:',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: theme.darkTheme
+                                        ? Color(0xFF8F8F8F)
+                                        : Colors.orange)),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: SizedBox(
+                                    width: 200,
+                                    child: Text(data.remarks,
+                                        overflow: TextOverflow.fade,
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xFF8F8F8F))))),
+                          ],
+                        ))
+                  ],
+                );
+              }))),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Edit Details',
         onPressed: () => Navigator.of(context).pushNamed('/update-detail',

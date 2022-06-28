@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:imoney_saver/models/money_saver_model.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:mat_month_picker_dialog/mat_month_picker_dialog.dart';
 import 'package:provider/provider.dart';
@@ -104,85 +105,92 @@ class MoneySaverChartState extends State<MoneySaverChart> {
         ]),
         body: AspectRatio(
           aspectRatio: 1.3,
-          child: Card(
-            margin:
-                const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-            color: Colors.white,
-            child: Row(
-              children: [
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: FutureBuilder(
-                        future: setChartInitialValues(), //Initialized Value
-                        // ignore: void_checks
-                        initialData: groupedData,
-                        builder: (context, snapshot) => snapshot
-                                    .connectionState ==
-                                ConnectionState.waiting
-                            ? const Center(
-                                child: Text('No data found'),
-                              )
-                            : Consumer<MoneySaverDetailProvider>(
-                                builder: (context, detailProvider, child) {
-                                return PieChart(
-                                  PieChartData(
-                                      pieTouchData: PieTouchData(touchCallback:
-                                          (FlTouchEvent event,
-                                              pieTouchResponse) {
-                                        setState(() {
-                                          if (!event
-                                                  .isInterestedForInteractions ||
-                                              pieTouchResponse == null ||
-                                              pieTouchResponse.touchedSection ==
-                                                  null) {
-                                            touchedIndex = -1;
-                                            return;
-                                          }
-                                          touchedIndex = pieTouchResponse
-                                              .touchedSection!
-                                              .touchedSectionIndex;
-                                        });
-                                      }),
-                                      borderData: FlBorderData(
-                                        show: false,
-                                      ),
-                                      sectionsSpace: 0,
-                                      centerSpaceRadius: 40,
-                                      sections: showingSections()),
-                                );
-                              })),
+          child: Consumer<MoneySaverThemeProvider>(
+              builder: (context, theme, child) {
+            return Card(
+              margin:
+                  const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: FutureBuilder(
+                          future: setChartInitialValues(), //Initialized Value
+                          // ignore: void_checks
+                          initialData: groupedData,
+                          builder: (context, snapshot) => snapshot
+                                      .connectionState ==
+                                  ConnectionState.waiting
+                              ? const Center(
+                                  child: Text('No data found'),
+                                )
+                              : Consumer<MoneySaverDetailProvider>(
+                                  builder: (context, detailProvider, child) {
+                                  return PieChart(
+                                    PieChartData(
+                                        pieTouchData: PieTouchData(
+                                            touchCallback: (FlTouchEvent event,
+                                                pieTouchResponse) {
+                                          setState(() {
+                                            if (!event
+                                                    .isInterestedForInteractions ||
+                                                pieTouchResponse == null ||
+                                                pieTouchResponse
+                                                        .touchedSection ==
+                                                    null) {
+                                              touchedIndex = -1;
+                                              return;
+                                            }
+                                            touchedIndex = pieTouchResponse
+                                                .touchedSection!
+                                                .touchedSectionIndex;
+                                          });
+                                        }),
+                                        borderData: FlBorderData(
+                                          show: false,
+                                        ),
+                                        sectionsSpace: 0,
+                                        centerSpaceRadius: 40,
+                                        sections: showingSections()),
+                                  );
+                                })),
+                    ),
                   ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    Indicator(
-                      color: Color(0xFF00E676),
-                      text: 'Income',
-                      isSquare: true,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Indicator(
-                      color: Color(0xFFFF1744),
-                      text: 'Expense',
-                      isSquare: true,
-                    ),
-                    SizedBox(
-                      height: 18,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 28,
-                ),
-              ],
-            ),
-          ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Indicator(
+                        color: Color(0xFF00E676),
+                        text: 'Income',
+                        isSquare: true,
+                        textColor:
+                            theme.darkTheme ? Colors.grey : Colors.orange,
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Indicator(
+                        color: Color(0xFFFF1744),
+                        text: 'Expense',
+                        isSquare: true,
+                        textColor:
+                            theme.darkTheme ? Colors.grey : Colors.orange,
+                      ),
+                      SizedBox(
+                        height: 18,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 28,
+                  ),
+                ],
+              ),
+            );
+          }),
         ));
   }
 
@@ -241,7 +249,7 @@ class Indicator extends StatelessWidget {
     required this.text,
     required this.isSquare,
     this.size = 16,
-    this.textColor = const Color(0xff505050),
+    required this.textColor,
   }) : super(key: key);
 
   @override

@@ -10,7 +10,7 @@ class MoneySaverAbout extends StatelessWidget {
         body: Column(
           children: const [
             Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0),
                 child: Center(
                   child: Text('Money Saver',
                       style: TextStyle(
