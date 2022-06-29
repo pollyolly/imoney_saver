@@ -37,7 +37,7 @@ class MoneySaverSettingState extends State<MoneySaverSetting> {
                         topLeft: Radius.circular(0),
                         topRight: Radius.circular(0))),
                 margin: const EdgeInsets.only(
-                    top: 5, bottom: 5, left: 10, right: 10),
+                    top: 0, bottom: 5, left: 10, right: 10),
                 child: InkWell(
                     onTap: () =>
                         Navigator.of(context).pushNamed('/theme-setting'),
@@ -55,7 +55,7 @@ class MoneySaverSettingState extends State<MoneySaverSetting> {
                         topLeft: Radius.circular(0),
                         topRight: Radius.circular(0))),
                 margin: const EdgeInsets.only(
-                    top: 5, bottom: 5, left: 10, right: 10),
+                    top: 0, bottom: 5, left: 10, right: 10),
                 child: InkWell(
                     onTap: () {},
                     child: Padding(
@@ -72,7 +72,7 @@ class MoneySaverSettingState extends State<MoneySaverSetting> {
                         topLeft: Radius.circular(0),
                         topRight: Radius.circular(0))),
                 margin: const EdgeInsets.only(
-                    top: 5, bottom: 5, left: 10, right: 10),
+                    top: 0, bottom: 5, left: 10, right: 10),
                 child: InkWell(
                     onTap: () {},
                     child: Padding(

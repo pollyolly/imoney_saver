@@ -3,20 +3,21 @@ import 'dart:convert' show json;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
-  scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
-
-class GoogleDriveApi {
+class GoogleSigninApi {
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    // Optional clientId
+    // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
+    scopes: <String>[
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   GoogleSignInAccount? _currentUser;
+  GoogleSignInAccount? get currentUser => _currentUser;
+
   String _contactText = '';
 
-  GoogleDriveApi() {
+  GoogleSigninApi() {
     initGoogle();
   }
 
@@ -24,13 +25,13 @@ class GoogleDriveApi {
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       _currentUser = account;
       if (_currentUser != null) {
-        _handleGetContact(_currentUser!);
+        handleGetContact(_currentUser!);
       }
     });
     _googleSignIn.signInSilently();
   }
 
-  _handleGetContact(GoogleSignInAccount user) async {
+  handleGetContact(GoogleSignInAccount user) async {
     initGoogle();
     _contactText = 'Loading contact info...';
     final http.Response response = await http.get(
@@ -72,7 +73,7 @@ class GoogleDriveApi {
     return null;
   }
 
-  _handleSignIn() async {
+  Future handleSignIn() async {
     initGoogle();
     try {
       await _googleSignIn.signIn();
@@ -81,7 +82,7 @@ class GoogleDriveApi {
     }
   }
 
-  Future<void> _handleSignOut() {
+  handleSignOut() {
     initGoogle();
     return _googleSignIn.disconnect();
   }

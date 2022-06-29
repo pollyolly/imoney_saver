@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imoney_saver/provider/detail_provider.dart';
+import 'package:imoney_saver/provider/googlesignin_provider.dart';
 import 'package:imoney_saver/provider/notification_provider.dart';
 import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:imoney_saver/routes/route_generator.dart';
@@ -44,8 +45,10 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => MoneySaverDetailProvider()),
       ChangeNotifierProvider(create: (context) => MoneySaverThemeProvider()),
+      ChangeNotifierProvider(create: (context) => ScheduleProvider()),
       ChangeNotifierProvider(
-          create: (context) => ScheduleProvider()) //MaterialApp not detected),
+          create: (context) =>
+              GoogleSignInProvider()) //MaterialApp not detected),
     ],
     child: const MyApp(),
   ));
@@ -135,7 +138,7 @@ class MyAppState extends State<Home> {
               icon: const Icon(Icons.calendar_month, size: 25)),
         ),
       ]),
-      drawer: const NavigationDrawer(),
+      drawer: NavigationDrawer(),
       body: Column(children: const [MoneySaverList()]),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Details',

@@ -9,7 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:googleapis_auth/auth_io.dart';
 
-const _clientId = "YOUR CLIENT ID FROM GOOGLE CONSOLE";
+const _clientId =
+    "872338807730-934sqglpbrju06vp3b2f7s2rivh06rv9.apps.googleusercontent.com";
 const _scopes = ['https://www.googleapis.com/auth/drive.file'];
 
 class GoogleDrive {
@@ -47,7 +48,7 @@ class GoogleDrive {
 //   if not able to create id then it means user authetication has failed
   Future<String?> _getFolderId(ga.DriveApi driveApi) async {
     final mimeType = "application/vnd.google-apps.folder";
-    String folderName = "personalDiaryBackup";
+    String folderName = "imoney_saver_backup";
 
     try {
       final found = await driveApi.files.list(

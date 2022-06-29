@@ -33,9 +33,6 @@ class ThemeSettingState extends State<ThemeSetting> {
                           SizedBox(child: Consumer<MoneySaverThemeProvider>(
                               builder: (context, value, child) {
                             return CupertinoSwitch(
-                                activeColor: value.darkTheme
-                                    ? Colors.black12
-                                    : Colors.orange,
                                 value: value.darkTheme,
                                 onChanged: (_) => value.toggleTheme());
                           })),

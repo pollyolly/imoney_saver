@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:imoney_saver/provider/googlesignin_provider.dart';
 import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
+// import 'dart:async';
+// import 'dart:convert' show json;
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:http/http.dart' as http;
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class NavigationDrawer extends StatefulWidget {
+  NavigationDrawer({Key? key}) : super(key: key);
 
+  NavigationDrawerState createState() => NavigationDrawerState();
+}
+
+class NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(child: Consumer<MoneySaverThemeProvider>(
-        builder: (context, MoneySaverThemeProvider value, child) {
+    return Drawer(child:
+        Consumer2<MoneySaverThemeProvider, GoogleSignInProvider>(
+            builder: (context, theme, gsignin, child) {
       return ListView(padding: EdgeInsets.zero, children: [
-        DrawerHeader(
+        UserAccountsDrawerHeader(
           decoration: BoxDecoration(
-              color: value.darkTheme ? Colors.black12 : Colors.orange),
-          child: Text(
-            'Money Saver',
-            style:
-                TextStyle(color: value.darkTheme ? Colors.grey : Colors.white),
+              color: theme.darkTheme ? Colors.black12 : Colors.orange),
+          accountName: Text(
+            gsignin.currentUser?.displayName ?? 'Username',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        Divider(
-          height: 1,
-          thickness: 1,
+          accountEmail: Text(
+            gsignin.currentUser?.email ?? 'Email',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          currentAccountPicture: FlutterLogo(),
         ),
         ListTile(
             title: const Text('Charts'),
@@ -43,6 +57,21 @@ class NavigationDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed('/rate');
             }),
+        // ListTile(
+        //     title: const Text('Refresh'),
+        //     onTap: () => _handleGetContact(_currentUser!)),
+        ListTile(
+            title:
+                gsignin.currentUser != null ? Text('SignOut') : Text('Signin'),
+            onTap: () {
+              if (gsignin.currentUser != null) {
+                gsignin.googleLogout();
+                Navigator.of(context).pushNamed('/');
+              } else {
+                gsignin.googleSignin();
+                Navigator.of(context).pushNamed('/');
+              }
+            })
       ]);
     }));
   }
