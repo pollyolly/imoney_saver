@@ -13,6 +13,22 @@ Below are the resources used to create this project.
 - [fl_chart](https://github.com/imaNNeoFighT/fl_chart/blob/master/example/lib/pie_chart/samples/pie_chart_sample2.dart)
 - [Theme Switcher](https://codesource.io/building-theme-switcher-using-provider-and-shared-preferences/)
 
+### Configuration Files
+Android
+<pre>
+android/app/src/main/AndroidManifest.xml
+android/app/build.gradle
+android/app/google-services.json
+android/app/imoney-saver-keystore.jks
+android/app/proguard-rules.pro //FilePicker
+android/build.gradle
+android/key.properties
+pubspec.yaml
+</pre>
+IOS
+<pre>
+ios/runner/AppDelegate.swift
+</pre>
 ## Notification Configuration
 AppDelegate.swift
 <pre>
@@ -37,15 +53,20 @@ defaultConfig {
         versionName flutterVersionName
     }
 </pre>
-## FilePickeer
+## FilePicker
 <pre>
 F:\Desktop\dev-flutter-projects\imoney_saver\android\app\proguard-rules.pro
-
 -keep class androidx.lifecycle.DefaultLifecycleObserver
 </pre>
 ## Google Drive Api
+Setup Api
 <pre>
 1. Enable google drive Api
-
-2. Create Firebase app
+2. Create Firebase App
+</pre>
+AndroidManifest.xml
+<pre>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.imoney_saver">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> 
 </pre>
