@@ -65,8 +65,8 @@ Setup Api
 2. Create Firebase App
 </pre>
 AndroidManifest.xml
-<pre>
+```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.imoney_saver">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> 
-</pre>
+```
