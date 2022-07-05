@@ -55,6 +55,9 @@ dependencies:
   url_launcher: ^6.1.4
   flutter_secure_storage: ^5.0.2
   googleapis: ^9.1.0
+  sqflite_common_ffi: ^2.1.1+1
+  firebase_auth: ^3.4.1
+  file_picker: ^4.6.1
 
 dev_dependencies:
   flutter_test:

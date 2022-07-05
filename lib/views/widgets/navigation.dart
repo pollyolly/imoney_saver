@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:imoney_saver/provider/googlesignin_provider.dart';
 import 'package:imoney_saver/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/transformers.dart';
 // import 'dart:async';
 // import 'dart:convert' show json;
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -19,6 +21,8 @@ class NavigationDrawerState extends State<NavigationDrawer> {
     return Drawer(child:
         Consumer2<MoneySaverThemeProvider, GoogleSignInProvider>(
             builder: (context, theme, gsignin, child) {
+      // GoogleSignInAccount? user = gsignin.currentUser;
+
       return ListView(padding: EdgeInsets.zero, children: [
         UserAccountsDrawerHeader(
           decoration: BoxDecoration(
@@ -35,7 +39,8 @@ class NavigationDrawerState extends State<NavigationDrawer> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          currentAccountPicture: FlutterLogo(),
+          // currentAccountPicture: GoogleUserCircleAvatar(
+          //     placeholderPhotoUrl: gsignin.currentUser?.photoUrl),
         ),
         ListTile(
             title: const Text('Charts'),

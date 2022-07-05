@@ -37,3 +37,15 @@ defaultConfig {
         versionName flutterVersionName
     }
 </pre>
+## FilePickeer
+<pre>
+F:\Desktop\dev-flutter-projects\imoney_saver\android\app\proguard-rules.pro
+
+-keep class androidx.lifecycle.DefaultLifecycleObserver
+</pre>
+## Google Drive Api
+<pre>
+1. Enable google drive Api
+
+2. Create Firebase app
+</pre>

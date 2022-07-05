@@ -57,7 +57,8 @@ class MoneySaverSettingState extends State<MoneySaverSetting> {
                 margin: const EdgeInsets.only(
                     top: 0, bottom: 5, left: 10, right: 10),
                 child: InkWell(
-                    onTap: () {},
+                    onTap: () =>
+                        Navigator.of(context).pushNamed('/backup-setting'),
                     child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(

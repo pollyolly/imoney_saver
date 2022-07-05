@@ -1,20 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:imoney_saver/provider/theme_provider.dart';
+import 'package:imoney_saver/provider/googlesignin_provider.dart';
 import 'package:provider/provider.dart';
 
-class ThemeSetting extends StatefulWidget {
-  const ThemeSetting({Key? key}) : super(key: key);
+class BackupSetting extends StatefulWidget {
+  const BackupSetting({Key? key}) : super(key: key);
   @override
-  ThemeSettingState createState() => ThemeSettingState();
+  BackupSettingState createState() => BackupSettingState();
 }
 
-class ThemeSettingState extends State<ThemeSetting> {
-  // bool _lights = false;
+class BackupSettingState extends State<BackupSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Theme Setting')),
+        appBar: AppBar(title: const Text('Backup Setting')),
         body: Column(
           children: [
             Card(
@@ -24,19 +22,20 @@ class ThemeSettingState extends State<ThemeSetting> {
                         topRight: Radius.circular(0))),
                 margin: const EdgeInsets.only(
                     top: 5, bottom: 5, left: 10, right: 10),
-                child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Light/Dark Mode:'),
-                          SizedBox(child: Consumer<MoneySaverThemeProvider>(
-                              builder: (context, value, child) {
-                            return CupertinoSwitch(
-                                value: value.darkTheme,
-                                onChanged: (_) => value.toggleTheme());
-                          })),
-                        ]))
+                child: Consumer<GoogleSignInProvider>(
+                    builder: (context, googleProvider, child) {
+                  return InkWell(
+                      onTap: () {
+                        googleProvider.uploadFileToGoogleDrive();
+                      },
+                      child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Google Drive:${googleProvider.filepath}')
+                              ])));
+                })
                 // ),
                 ),
           ],

@@ -1,21 +1,36 @@
 // import 'package:imoney_ssaver_arguments.dart';
+import 'dart:io';
+
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import './money_saver_model.dart';
+import 'package:sqflite_common/sqlite_api.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
+//https://github.com/tekartik/sqflite/blob/master/sqflite_common_ffi/doc/encryption_support.md
 
 class DatabaseConnect {
   Database? _database; //_database variable is a nullable (can be null)
 
   Future<Database> get database async {
-    final dbpath =
-        await getDatabasesPath(); //location of db in device i.e. data/data //WidgetsFlutterBinding.ensureInitialized(); requirement
-    const dbname = 'money_savers.db'; //db name
-    final path =
-        join(dbpath, dbname); //joining path i.e. data/data/money_saver.db
+    const dbname = 'money_savers.db';
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+      var databaseFactory = databaseFactoryFfi;
+      _database = await databaseFactory.openDatabase(
+          Directory.current.path + dbname,
+          options: OpenDatabaseOptions(version: 1, onCreate: _createDB));
+    } else {
+      final dbpath =
+          await getDatabasesPath(); //location of db in device i.e. data/data //WidgetsFlutterBinding.ensureInitialized(); requirement
+      //db name
+      final path =
+          join(dbpath, dbname); //joining path i.e. data/data/money_saver.db
 
-    _database = await openDatabase(path,
-        version: 1, onCreate: _createDB); //open db connection
+      _database = await openDatabase(path,
+          version: 1, onCreate: _createDB); //open db connection
+    }
 
     return _database!; //! _database is nullable but we are sure that the returned value is not null
   }
