@@ -33,7 +33,8 @@ class BackupSettingState extends State<BackupSetting> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Google Drive:${googleProvider.filepath}')
+                                Text(
+                                    'Google Drive File: ${googleProvider.filename}')
                               ])));
                 })
                 // ),

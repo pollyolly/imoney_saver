@@ -27,8 +27,8 @@ class GoogleSignInProvider with ChangeNotifier {
   // GoogleSignInAccount? _user;
   GoogleSignIn? googleUser;
   // final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? _filepath;
-  String? get filepath => _filepath;
+  String? _filename = "No file added!";
+  String? get filename => _filename;
   GoogleSignInAccount? get currentUser => _currentUser;
 
   GoogleSignInProvider() {
@@ -66,9 +66,9 @@ class GoogleSignInProvider with ChangeNotifier {
     var drive2 = drive.DriveApi(client);
     drive.File fileToUpload = drive.File();
     FilePickerResult? fresult = await FilePicker.platform.pickFiles();
-
+    PlatformFile? file;
     if (fresult != null) {
-      PlatformFile? file = fresult.files.first;
+      file = fresult.files.first;
       fileToUpload.parents = [
         "1nESDN0z_en_3sW_XNCWXtfQmawULUtUt"
       ]; //imoney_saver_backup
@@ -76,16 +76,19 @@ class GoogleSignInProvider with ChangeNotifier {
       File data = File(fresult.files.single.path!);
       var response = await drive2.files.create(fileToUpload,
           uploadMedia: drive.Media(data.openRead(), data.lengthSync()));
-      // _filepath = file.path;
+
       // print(response);
-      await NotificationApi.showNotification(
-          title: 'Google Drive Upload',
-          body: 'Failed to upload: $response',
-          payload: 'test payload');
+      if (response.name != null) {
+        _filename = response.name;
+        await NotificationApi.showNotification(
+            title: 'Google Drive Upload',
+            body: 'Successfully uploaded the file ${response.name}',
+            payload: 'test payload');
+      }
     } else {
       await NotificationApi.showNotification(
           title: 'Google Drive Upload',
-          body: 'Failed to upload: ${fresult?.files.first.name}',
+          body: 'Failed to upload the file ${file?.name}',
           payload: 'test payload');
     }
   }
