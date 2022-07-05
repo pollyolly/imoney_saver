@@ -21,8 +21,8 @@ class NavigationDrawerState extends State<NavigationDrawer> {
     return Drawer(child:
         Consumer2<MoneySaverThemeProvider, GoogleSignInProvider>(
             builder: (context, theme, gsignin, child) {
-      // GoogleSignInAccount? user = gsignin.currentUser;
-
+      // ImageProvider
+      var photo = gsignin.currentUser?.photoUrl;
       return ListView(padding: EdgeInsets.zero, children: [
         UserAccountsDrawerHeader(
           decoration: BoxDecoration(
@@ -39,8 +39,9 @@ class NavigationDrawerState extends State<NavigationDrawer> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          // currentAccountPicture: GoogleUserCircleAvatar(
-          //     placeholderPhotoUrl: gsignin.currentUser?.photoUrl),
+          currentAccountPicture: photo != null
+              ? CircleAvatar(radius: 30.0, backgroundImage: NetworkImage(photo))
+              : const CircleAvatar(backgroundColor: Colors.white),
         ),
         ListTile(
             title: const Text('Charts'),
