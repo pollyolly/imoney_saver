@@ -12,6 +12,7 @@ Below are the resources used to create this project.
 - [sqflite](https://www.youtube.com/watch?v=n5tiox4kSWw)
 - [fl_chart](https://github.com/imaNNeoFighT/fl_chart/blob/master/example/lib/pie_chart/samples/pie_chart_sample2.dart)
 - [Theme Switcher](https://codesource.io/building-theme-switcher-using-provider-and-shared-preferences/)
+- [Google Api](https://www.technicalfeeder.com/2021/12/flutter-file-folder-search-with-google-drive-api/)
 
 ### Configuration Files
 Android
